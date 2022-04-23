@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입폼</title>
+    <style>
+        form{
+          border: 1px solid lightgray;
+          padding: 20px;
+        }
+        label{
+          color: gray;
+          font-size: 10px;
+        }
+      
+    </style>
+</head>
+<body>
+
+    <form action="insert.me" method="post">
+   
+       * 아이디 :
+       <input type="text" name="userId" id="userId" required> <br>
+        <label> 첫글자는 반드시 영문자로, 그리고 영문자, 숫자를 포함하여 
+                총 4~12로 입력하시오
+        </label>
+        <br><br>
+
+       <b>* 비밀번호 : </b>
+        <input type="password" name="userPwd1" id="userPwd1" required> <br>
+         <label>
+         영문자,숫자,특수문자로 총 8-15자로 입력하시오.
+        </label>
+        <br><br>
+
+       <b>* 비밀번호 확인 : </b>
+        <input type="password" id="userPwd2" required> <br>
+        <label>
+         위의 비밀번호와 일치하게 입력하시오.
+        </label><br> <br>
+
+       <b>* 이름 :  </b> 
+       <input type="text"  name="userName"  id="userName" required><br>
+        <label>
+         한글로만 이루어져야 하며 2글자 이상으로 입력하시오.
+        </label><br><br>
+
+       <b>* 이메일 : </b>
+        <input type="email" name="email" id="email"> <br>
+        <label>
+         이메일 형식에 맞춰서 입력하시오.
+        </label><br><br>
+
+       <b>* 취미 : </b>
+        <input type="text" name="hobby" id="hobby" 
+                placeholder="축구,농구,야구,독서 등" list="hobbyList"> <br><br>
+        <datalist id="hobbyList">
+           <option value="soccer">축구</option>
+           <option value="basketball">농구</option>
+           <option value="baseball">야구</option>
+           <option value="reading">독서</option>
+        </datalist>
+
+       <b>* 거주지 :</b> 
+       <select name="address" id="address">
+            <option value="seoul">서울</option>
+            <option value="incheon">인천</option>
+            <option value="busan">부산</option>
+        </select><br><br>
+
+        <input type="submit" value="회원가입" onclick="return validate();"> 
+        <input type="reset" value="취소">
+
+    </form>
+
+    <script>
+       // 유효성 검사 : 사용자가 입력한 값들이 유효한 값의 형태인지 검사
+       function validate(){
+            
+         // 아이디, 비밀번호, 비밀번호일치, 이름 
+
+         // input 요소의 값들 뽑아오기
+         var userId = document.getElementById("userId").value;
+         var userPwd1 = document.getElementById("userPwd1").value;
+         var userPwd2 = document.getElementById("userPwd2").value;
+         var userName = document.getElementById("userName").value;
+
+         // 1)  아이디 검사
+         // 영문자(소문자), 숫자로만 총 4~12 글자로 이루어져야 함
+         // 단, 반드시 첫글자는 영문자
+         
+         var regExp = /^[a-z][a-z\d]{3,11}$/;
+
+        if(!regExp.test(userId)){  //유효하지 않은 경우
+
+             alert("유효한 아이디를 입력해주세요.");
+             document.getElementById("userId").select();
+             return false;
+
+         } 
+          
+         // 2) 비밀번호 검사
+         // 영문자(대소문자),숫자,특수문자(!@#$%^)로 총 8~15 글자 사이로 이루어져야 함
+         regExp =/^[a-z\d!@#$%^]{8,15}$/i;
+         if(!regExp.test(userPwd1)){ //유효하지 않은 경우
+
+            alert("유효한 비밀번호를 입력해주세요.");
+            document.getElementById("userPwd1").value = ""; //값을 비워주는 것
+            document.getElementById("userPwd1").focus(); //재입력 유도 (커서)
+
+            return false;
+            
+         }
+
+         //3) 비밀번호 일치검사
+         if(userPwd1 != userPwd2){ //유효하지 않은 경우
+
+          alert("동일한 비밀번호를 입력해주세요");
+          document.getElementById("userPwd2").value = "";
+          document.getElementById("userPwd2").focus(); 
+
+          return false;
+
+         }
+        //4) 이름 검사
+        //한글(결합)로만 2글자 이상
+        regExp = /^[가-힣]{2,}$/;
+
+         if(!regExp.test(userName)){ //유효하지 않은 경우
+            alert("유효한 이름을 입력해주세요");
+            document.getElementById("userName").select(); //긁어주는것
+
+            return false;
+         }
+
+           return true;
+         
+       }
+    </script>
+    
+</body>
+</html>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
